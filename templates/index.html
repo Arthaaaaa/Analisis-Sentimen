@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Klasifikasi Sentimen Komentar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 2rem; background-color: #f9f9f9; }
+        .sentimen-box {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .negatif { background-color: #f8d7da; }
+        .netral { background-color: #fff3cd; }
+        .positif { background-color: #d4edda; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">🔍 Klasifikasi Sentimen Komentar</h1>
+
+        <!-- Form input -->
+        <form method="POST" action="/klasifikasi">
+            <div class="mb-3">
+                <label for="komentar" class="form-label">Masukkan komentar:</label>
+                <textarea name="komentar" class="form-control" rows="5" placeholder="Masukkan komentar di sini..." required>{{ komentar if komentar else '' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Klasifikasikan</button>
+        </form>
+
+        <!-- Hasil klasifikasi -->
+        {% if prediksi %}
+        <div class="sentimen-box mt-4 {{ prediksi }}">
+            <h4>Hasil Prediksi: <strong>{{ prediksi.capitalize() }}</strong></h4>
+        </div>
+        {% endif %}
+
+        {% if komentar %}
+            <p><strong>Komentar:</strong> {{ komentar }}</p>
+        {% endif %}
+
+        {% if hasil %}
+            <p><strong>Hasil Sentimen:</strong> {{ hasil }}</p>
+        {% endif %}
+
+        <hr>
+
+        <!-- Visualisasi -->
+        <h3 class="mt-5">📊 Distribusi Sentimen</h3>
+        <img src="{{ url_for('static', filename='visualisasi_sentimen.png') }}" class="img-fluid" alt="Visualisasi Sentimen">
+        <h3 class="mt-5">Komentar perhari</h3>
+        <img src="{{ url_for('static', filename='komentar_per_hari.png') }}" class="img-fluid" alt="Komentar Perhari">
+        <h3 class="mt-5">Komentar_per_jam</h3>
+        <img src="{{ url_for('static', filename='komentar_per_jam.png') }}" class="img-fluid" alt="komentar perjam">
+        <h3 class="mt-5">komentar perplatform</h3>
+        <img src="{{ url_for('static', filename='komentar_per_platform.png') }}" class="img-fluid" alt="komentar perplatform">
+        <h3 class="mt-5">Sentimen perplatform</h3>
+        <img src="{{ url_for('static', filename='sentimen_per_platform.png') }}" class="img-fluid" alt="sentimen perplatform">
+        
+
+        <hr>
+
+        <!-- Wordcloud -->
+        <h3 class="mt-5">☁️ Wordcloud per Sentimen</h3>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h5>Negatif</h5>
+                <img src="{{ url_for('static', filename='wordcloud_negatif.png') }}" class="img-fluid" alt="Wordcloud Negatif">
+            </div>
+            <div class="col-md-4">
+                <h5>Netral</h5>
+                <img src="{{ url_for('static', filename='wordcloud_netral.png') }}" class="img-fluid" alt="Wordcloud Netral">
+            </div>
+            <div class="col-md-4">
+                <h5>Positif</h5>
+                <img src="{{ url_for('static', filename='wordcloud_positif.png') }}" class="img-fluid" alt="Wordcloud Positif">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
