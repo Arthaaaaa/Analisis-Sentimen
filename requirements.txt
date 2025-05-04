@@ -1,6 +1,7 @@
-Flask==3.0.2
-gunicorn==21.2.0
-tensorflow==2.12.0
-numpy==1.24.4
-pillow==10.2.0
-opencv-python==4.9.0.80
+Flask
+gunicorn
+tensorflow
+numpy
+opencv-python
+matplotlib
+pillow
